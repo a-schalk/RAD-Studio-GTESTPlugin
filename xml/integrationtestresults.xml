@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="39" failures="8" disabled="0" errors="0" timestamp="2017-07-25T10:28:39" time="0.091" name="AllTests">
+  <testsuite name="TTestFahrwegoptiJobSequencingStrategy" tests="39" failures="8" disabled="0" errors="0" time="0.09">
+    <testcase name="TestSingleJob" status="run" time="0.001" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testInitialSetting" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testA1U1Aufgenommen" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testU1Abgabe" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testA2Quellfahrt" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testA1A2Aufgenommen" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testA1A2Abgabe" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testA1A2ZuVollziehen" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testMitUmlagerungOhneVorschicken" status="run" time="0.004" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testMultipleGroups" status="run" time="0.004" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testMultipleGroupsInverseSortOrder" status="run" time="0.004" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testDifferentZGroups" status="run" time="0.009" classname="TTestFahrwegoptiJobSequencingStrategy">
+      <failure message="C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1036&#x0A;Value of: m_pStrategy-&gt;bCheckJobSequence(m_aaTaIst, sJobA1, IDX_GERAET10, IDX_LAM2, 2, true)&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1036
+Value of: m_pStrategy->bCheckJobSequence(m_aaTaIst, sJobA1, IDX_GERAET10, IDX_LAM2, 2, true)
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+    <testcase name="testMissingQGrp" status="run" time="0.004" classname="TTestFahrwegoptiJobSequencingStrategy">
+      <failure message="C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1078&#x0A;Value of: m_pStrategy-&gt;bCheckJobSequence(m_aaTaIst, sJobA2, IDX_GERAET10, IDX_LAM1, 2, true)&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1078
+Value of: m_pStrategy->bCheckJobSequence(m_aaTaIst, sJobA2, IDX_GERAET10, IDX_LAM1, 2, true)
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+    <testcase name="testGrpSendeoptimierungDisabled" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testGrpSendeoptimierungEnabled" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testGeraetOnOff" status="run" time="0.003" classname="TTestFahrwegoptiJobSequencingStrategy">
+      <failure message="C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1196&#x0A;Value of: m_pStrategy-&gt;bCheckJobSequence(m_aaTaIst, sJobA1, IDX_GERAET10, IDX_LAM2, 2, false)&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1196
+Value of: m_pStrategy->bCheckJobSequence(m_aaTaIst, sJobA1, IDX_GERAET10, IDX_LAM2, 2, false)
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+    <testcase name="testGeraetOnOffMissingJobs" status="run" time="0.005" classname="TTestFahrwegoptiJobSequencingStrategy">
+      <failure message="C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1212&#x0A;Value of: m_pStrategy-&gt;bCheckJobSequence(m_aaTaIst, sJobA1, IDX_GERAET10, IDX_LAM2, 2, false)&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1212
+Value of: m_pStrategy->bCheckJobSequence(m_aaTaIst, sJobA1, IDX_GERAET10, IDX_LAM2, 2, false)
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+    <testcase name="testJobsForTwoGeraete" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testHigherLAMNrThanLAMCount" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testMultipleSingleJobGroups" status="run" time="0.001" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testSameLAMForJobs" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testMissingQGrpWiederanlauf" status="run" time="0.001" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testHalbschritte" status="run" time="0.004" classname="TTestFahrwegoptiJobSequencingStrategy">
+      <failure message="C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1381&#x0A;Value of: m_pStrategy-&gt;bCheckJobSequence(m_aaTaIst, sJobPick1, IDX_GERAET10, IDX_LAM1, 2, true)&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1381
+Value of: m_pStrategy->bCheckJobSequence(m_aaTaIst, sJobPick1, IDX_GERAET10, IDX_LAM1, 2, true)
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+    <testcase name="testHalbschritteMissingJob" status="run" time="0.001" classname="TTestFahrwegoptiJobSequencingStrategy">
+      <failure message="C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1409&#x0A;Value of: !m_pStrategy-&gt;bCheckJobSequence(m_aaTaIst, sJobPick1, IDX_GERAET10, IDX_LAM1, 2, true)&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1409
+Value of: !m_pStrategy->bCheckJobSequence(m_aaTaIst, sJobPick1, IDX_GERAET10, IDX_LAM1, 2, true)
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+    <testcase name="testHalbschritteVorschicken" status="run" time="0.006" classname="TTestFahrwegoptiJobSequencingStrategy">
+      <failure message="C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1452&#x0A;Value of: !m_pStrategy-&gt;bCheckJobSequence(m_aaTaIst, sJobPick1, IDX_GERAET10, IDX_LAM1, 2, true)&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1452
+Value of: !m_pStrategy->bCheckJobSequence(m_aaTaIst, sJobPick1, IDX_GERAET10, IDX_LAM1, 2, true)
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+    <testcase name="testMfrVollzugsfehler__Blickle__20110427" status="run" time="0.003" classname="TTestFahrwegoptiJobSequencingStrategy">
+      <failure message="C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1527&#x0A;Value of: !m_pStrategy-&gt;bCheckJobSequence(m_aaTaIst, sJobG10U1_Wiederanlauf, IDX_GERAET10, IDX_LAM2, 2, true)&#x0A;  Actual: false&#x0A;Expected: true" type=""><![CDATA[C:\IW4\GM\test\ltwisagm\TestJobSequencingStrategie.cpp:1527
+Value of: !m_pStrategy->bCheckJobSequence(m_aaTaIst, sJobG10U1_Wiederanlauf, IDX_GERAET10, IDX_LAM2, 2, true)
+  Actual: false
+Expected: true]]></failure>
+    </testcase>
+    <testcase name="testReassignLAMNumbers4FachLAMVonLinksLAM1" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonLinksLAM2" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonLinksLAM3" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonRechtsLAM2" status="run" time="0.001" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonRechtsLAM3" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonRechtsLAM4" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonLinksLAM23Belegt" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonRechtsLAM23Belegt" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonLinksLAM13Belegt" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonRechtsLAM13Belegt" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonLinksLAM24Belegt" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+    <testcase name="testReassignLAMNumbers4FachLAMVonRechtsLAM24Belegt" status="run" time="0" classname="TTestFahrwegoptiJobSequencingStrategy" />
+  </testsuite>
+</testsuites>

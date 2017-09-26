@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified">  
+  <xs:element name="testsuites">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="testsuite" minOccurs="0" maxOccurs="unbounded" type="TestSuiteType"/>
+      </xs:sequence>
+      <xs:attribute name="tests" use="required" type="xs:int"/>
+      <xs:attribute name="failures" use="required" type="xs:int"/>
+      <xs:attribute name="disabled" use="required" type="xs:int"/>
+      <xs:attribute name="errors" use="required" type="xs:int"/>
+      <xs:attribute name="timestamp" use="required" type="xs:string"/>
+      <xs:attribute name="time" use="required" type="xs:decimal"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+
+<xs:complexType name="FailureType">
+  <xs:simpleContent>
+    <xs:extension base="xs:string">
+        <xs:attribute name="message" type="xs:string"/> 
+        <xs:attribute name="type" type="xs:string"/> 
+     </xs:extension>
+  </xs:simpleContent>
+ </xs:complexType>
+  
+ <xs:complexType name="TestCaseType">  
+    <xs:sequence>
+      <xs:element name="failure" type="FailureType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string"/> 
+    <xs:attribute name="status" type="xs:string"/> 
+    <xs:attribute name="time" type="xs:decimal"/> 
+    <xs:attribute name="classname" type="xs:string"/>   
+ </xs:complexType>
+
+  <xs:complexType name="TestSuiteType">
+    <xs:sequence>
+      <xs:element name="testcase" type="TestCaseType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" use="required" type="xs:string"/>
+    <xs:attribute name="tests" type="xs:int" use="required"/>
+    <xs:attribute name="failures" type="xs:int" use="required"/>
+    <xs:attribute name="errors" type="xs:int" use="required"/>
+    <xs:attribute name="disabled" type="xs:int"/>      
+    <xs:attribute name="time" type="xs:decimal" use="required"/>
+  </xs:complexType>
+</xs:schema>

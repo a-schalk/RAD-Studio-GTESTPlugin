@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{CF1F2783-787C-415F-9900-9C3CDDC42158}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="GTESTPlugin.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="GTESTPlugin">
+        <MSBuild Projects="GTESTPlugin.cbproj"/>
+    </Target>
+    <Target Name="GTESTPlugin:Clean">
+        <MSBuild Projects="GTESTPlugin.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GTESTPlugin:Make">
+        <MSBuild Projects="GTESTPlugin.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="GTESTPlugin"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="GTESTPlugin:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="GTESTPlugin:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
