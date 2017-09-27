@@ -51,15 +51,16 @@ private:	// Benutzer-Deklarationen
   const static System::Uitypes::TColor RED;
   const static System::Uitypes::TColor GREEN;
 
-  String TestXml;
   GTESTPluginDebugNotifier Debug;
 
   String __fastcall getTestProjectPathFromActiveProjectsEnvVariables();
   _di_IOTAProject __fastcall getProjectFromMainProjectGroup(String projectPath);
   void __fastcall buildProject(_di_IOTAProject project);
-  void __fastcall refreshGui();
-  void __fastcall runTestOnProject(_di_IOTAProject testProject);
+  void __fastcall refreshGui(String resultFilePath);
+  String __fastcall runTestOnProject(_di_IOTAProject testProject);
   void __fastcall internalRun();
+  void __fastcall clearResults();
+  void __fastcall deleteTreeDataObjects();
 
   TTreeNode* __fastcall createTestSuitesNode(_di_IXMLtestsuites testSuites);
   TTreeNode* __fastcall createTestSuiteNode(TTreeNode* testSuitesNode, _di_IXMLTestSuiteType testSuite);

@@ -26,16 +26,16 @@ TGTESTFrame *GTESTFrame;
 __fastcall TGTESTFrame::TGTESTFrame(TComponent* Owner)
   : TFrame(Owner)
 {
-  TestXml = "";
   HeadPanel->ParentBackground = false;
   HeadPanel->ParentColor = false;
+  GTESTTreeView->ReadOnly = true;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TGTESTFrame::GTESTTreeViewCustomDrawItem(TCustomTreeView *Sender, TTreeNode *Node,
           TCustomDrawState State, bool &DefaultDraw)
 {
-  if(Node->Data) // Auf data ist der TestStatus gespeichert
+  if(Node->Data)
   {
     GTestNodeData* data = static_cast<GTestNodeData*>(Node->Data);
     if(data->getTestStatus() == TestStatus::FAILURE)
@@ -100,18 +100,15 @@ void __fastcall TGTESTFrame::navigateToFailureLine(TTreeNode* failureNode)
   editView->Buffer->EditPosition->Move(StrToInt(path[2]),1);
 }
 
-void __fastcall TGTESTFrame::refreshGui()
+void __fastcall TGTESTFrame::refreshGui(String resultFilePath)
 {
-  GTESTTreeView->Items->Clear(); // Remove any existing nodes. TODO vielleicht eigene Clear Funktion schreiben - weiß nicht ob diese  memory leaks erzeugt
-  GTESTTreeView->ReadOnly = true;
+  if(!FileExists(resultFilePath))
+    throw PluginException(resultFilePath + " does not exist");
 
-  if(!FileExists(TestXml))
-    throw PluginException(TestXml + " does not exist");
-
-  _di_IXMLtestsuites testSuites = Loadtestsuites(TestXml);
+  _di_IXMLtestsuites testSuites = Loadtestsuites(resultFilePath);
 
   if(!testSuites)
-    throw PluginException(TestXml + " was not found");
+    throw PluginException(resultFilePath + " was not found");
 
   TTreeNode* testSuitesNode = createTestSuitesNode(testSuites);
   initTestSuitesNode(testSuitesNode, testSuites);
@@ -235,14 +232,38 @@ void __fastcall TGTESTFrame::addFailureNodesToTestCaseNode(TTreeNode* testCaseNo
 
 void __fastcall TGTESTFrame::internalRun()
 {
+  clearResults();
   String testProjectPath = getTestProjectPathFromActiveProjectsEnvVariables();
 	_di_IOTAProject testProject = getProjectFromMainProjectGroup(testProjectPath);
   buildProject(testProject);
-  runTestOnProject(testProject);
-	refreshGui();
+  String resultFilePath = runTestOnProject(testProject);
+	refreshGui(resultFilePath);
 }
 
-void __fastcall TGTESTFrame::runTestOnProject(_di_IOTAProject testProject)
+void __fastcall TGTESTFrame::clearResults()
+{
+  deleteTreeDataObjects();
+  GTESTTreeView->Items->Clear();
+  HeadPanel->Color = clBtnFace;
+}
+
+void __fastcall TGTESTFrame::deleteTreeDataObjects()
+{
+  TTreeNode* node = GTESTTreeView->Items->GetFirstNode();
+
+  while(node)
+  {
+    if(node->Data)
+    {
+      GTestNodeData* data = static_cast<GTestNodeData*>(node->Data);
+      delete data;
+      node->Data = nullptr;
+    }
+    node = node->GetNext();
+  }
+}
+
+String __fastcall TGTESTFrame::runTestOnProject(_di_IOTAProject testProject)
 {
   _di_IOTAProjectOptions projectOptions = testProject->GetProjectOptions();
 
@@ -262,7 +283,7 @@ void __fastcall TGTESTFrame::runTestOnProject(_di_IOTAProject testProject)
   command.addParameter(Utility::convertUnicodeStrToStdStr(xmlPrameter));
   command.execute();
 
-	TestXml = resultFilePath;
+	return resultFilePath;
 }
 
 void __fastcall TGTESTFrame::buildProject(_di_IOTAProject project)
