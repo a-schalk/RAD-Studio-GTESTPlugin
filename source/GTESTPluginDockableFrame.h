@@ -23,6 +23,8 @@ __published:	// Von der IDE verwaltete Komponenten
   TLabel *TestsLabel;
   TLabel *FailureLabel;
   TLabel *DurationLabel;
+  TLabel *ErrorsLabel;
+  TLabel *DisabledLabel;
   void __fastcall GTESTTreeViewCustomDrawItem(TCustomTreeView *Sender, TTreeNode *Node,
           TCustomDrawState State, bool &DefaultDraw);
   void __fastcall GTESTTreeViewDblClick(TObject *Sender);

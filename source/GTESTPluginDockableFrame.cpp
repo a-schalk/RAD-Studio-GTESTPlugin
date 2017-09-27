@@ -17,7 +17,7 @@
 
 const String TGTESTFrame::DEBUGGER_ENV_VARS_STRING = "Debugger_EnvVars";
 const String TGTESTFrame::DEBUGGER_ENV_BLOCK_VARIABLE_NAME = "GTESTProject";
-const String TGTESTFrame::RESULT_FILE = "testresults.xml";
+const String TGTESTFrame::RESULT_FILE = "testResults.xml";
 const System::Uitypes::TColor TGTESTFrame::RED = System::Uitypes::TColor(0x00324BCC);
 const System::Uitypes::TColor TGTESTFrame::GREEN = System::Uitypes::TColor(0x0081A84A);
 
@@ -103,12 +103,16 @@ void __fastcall TGTESTFrame::navigateToFailureLine(TTreeNode* failureNode)
 void __fastcall TGTESTFrame::refreshGui(String resultFilePath)
 {
   if(!FileExists(resultFilePath))
-    throw PluginException(resultFilePath + " does not exist");
+  {
+    throw PluginException(resultFilePath + " does not exist. " +
+                          "That means the program was not terminated correctly. " +
+                          "So the file could not be created.");
+  }
 
   _di_IXMLtestsuites testSuites = Loadtestsuites(resultFilePath);
 
   if(!testSuites)
-    throw PluginException(resultFilePath + " was not found");
+    throw PluginException(resultFilePath + " was not found.");
 
   TTreeNode* testSuitesNode = createTestSuitesNode(testSuites);
   initTestSuitesNode(testSuitesNode, testSuites);
@@ -126,6 +130,8 @@ void __fastcall TGTESTFrame::initTestSuitesNode(TTreeNode* testSuitesNode, _di_I
 
   TestsLabel->Caption = "Tests: " + IntToStr(testSuites->Get_tests());
   FailureLabel->Caption = "Failures: " + IntToStr(testSuites->Get_failures());
+  ErrorsLabel->Caption = "Errors: " + IntToStr(testSuites->Get_errors());
+  DisabledLabel->Caption = "Disabled: " + IntToStr(testSuites->Get_disabled());
   DurationLabel->Caption = "Time: " + testSuites->Get_time();
   GetParentForm(this)->Caption = "GTEST - " + testSuites->Get_timestamp();
 
@@ -152,8 +158,9 @@ void __fastcall TGTESTFrame::initTestSuitesNode(TTreeNode* testSuitesNode, _di_I
 TTreeNode* __fastcall TGTESTFrame::createTestSuiteNode(TTreeNode* testSuitesNode, _di_IXMLTestSuiteType testSuite)
 {
   String outputString = testSuite->Get_name() + " | Tests: " + IntToStr(testSuite->Get_tests()) +
-                        " | Failures: " + IntToStr(testSuite->Get_failures()) + " | Time: " +
-                        testSuite->Get_time() + " |";
+                        " | Failures: " + IntToStr(testSuite->Get_failures()) + " | Errors: " +
+                        IntToStr(testSuite->Get_errors()) + " | Disabled: " + IntToStr(testSuite->Get_disabled()) +
+                        " | Time: " + testSuite->Get_time() + " |";
   return GTESTTreeView->Items->AddChild(testSuitesNode, outputString);
 }
 
@@ -244,6 +251,12 @@ void __fastcall TGTESTFrame::clearResults()
 {
   deleteTreeDataObjects();
   GTESTTreeView->Items->Clear();
+
+  TestsLabel->Caption = "Tests:";
+  FailureLabel->Caption = "Failures:";
+  ErrorsLabel->Caption = "Errors:";
+  DisabledLabel->Caption = "Disabled:";
+  DurationLabel->Caption = "Time:";
   HeadPanel->Color = clBtnFace;
 }
 
@@ -270,7 +283,9 @@ String __fastcall TGTESTFrame::runTestOnProject(_di_IOTAProject testProject)
   String finalOutputDir = ExtractFilePath(testProject->GetFileName()) +
                           projectOptions->GetOptionValue("FinalOutputDir").As<String>();
 	String sanitizedProjectName = projectOptions->GetOptionValue("SanitizedProjectName").As<String>();
-  String resultFilePath = finalOutputDir + RESULT_FILE;
+  String resultFilePath = finalOutputDir +
+                          ReplaceStr(ExtractFileName(testProject->GetFileName()), ".cbproj", "")
+                          + "_" + RESULT_FILE;
 
   String commandString = finalOutputDir + sanitizedProjectName + ".exe";
   String xmlPrameter = "--gtest_output=xml:\"" + resultFilePath + "\"";
@@ -317,7 +332,7 @@ _di_IOTAProject __fastcall TGTESTFrame::getProjectFromMainProjectGroup(String pr
 	}
 
 	if(project == nullptr)
-    throw PluginException("The following project could not be found in the main project group" + projectPath);
+    throw PluginException("The following project could not be found in the main project group " + projectPath);
 
   return project;
 }
@@ -372,7 +387,7 @@ void __fastcall TGTESTFrame::Run()
   }
   catch(PluginException& exception)
   {
-    Application->MessageBox(exception.getMessage().c_str(), L"Fehler", MB_OKCANCEL);
+    Application->MessageBox(exception.getMessage().c_str(), L"Error", MB_OKCANCEL);
   }
 }
 
@@ -380,5 +395,3 @@ void __fastcall TGTESTFrame::StartButtonClick(TObject *Sender)
 {
   Run();
 }
-//---------------------------------------------------------------------------
-
