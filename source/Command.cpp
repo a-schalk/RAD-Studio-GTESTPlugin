@@ -3,6 +3,9 @@
 #pragma hdrstop
 
 #include "Command.h"
+#include "PluginException.h"
+#include "Utility.h"
+#include <System.SysUtils.hpp>
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 
@@ -39,19 +42,21 @@ void Command::execute() const
 
 	if(!ShellExecuteEx(&ShExecInfo))
 	{
-		throw std::logic_error(std::string("Problem occured when executing the following command:\n") +
-													 m_commandString.c_str() + "\n" +
-													 "parameters: \n" + getParameters() + "\n" +
-													 "error code: " + std::to_string(GetLastError()));
+		throw PluginException(String("Problem occured when executing the following command:\n") +
+												  Utility::convertStdStrToUnicodeStr(m_commandString.c_str()) + "\n" +
+												  "parameters: \n" +
+                          Utility::convertStdStrToUnicodeStr(getParameters()) + "\n" +
+												  "error code: " + IntToStr(Integer(GetLastError())));
 	}
 
 	DWORD waitResult = WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
 
 	if (waitResult != WAIT_OBJECT_0)
 	{
-    throw std::logic_error(std::string("Problem occured when waiting for command:\n") +
-													 m_commandString.c_str() + "\n" +
-													 "parameters: \n" + getParameters() + "\n" +
-													 "error code: " + std::to_string(GetLastError()));
+    throw PluginException(String("Problem occured when waiting for command:\n") +
+												  Utility::convertStdStrToUnicodeStr(m_commandString.c_str()) + "\n" +
+												  "parameters: \n" +
+                          Utility::convertStdStrToUnicodeStr(getParameters()) + "\n" +
+												  "error code: " + IntToStr(Integer(GetLastError())));
 	}
 }
