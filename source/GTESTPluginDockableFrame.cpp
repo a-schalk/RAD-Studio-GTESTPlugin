@@ -101,7 +101,6 @@ void __fastcall TGTESTFrame::navigateToFailureLine(TTreeNode* failureNode)
   int falseLineNumber = StrToInt(path[2]);
   editView->Buffer->EditPosition->Move(falseLineNumber, 1);
   editView->Center(falseLineNumber, 1);
-//  editView->GetEditWindow()->GetForm()->SetFocus();
 }
 
 void __fastcall TGTESTFrame::refreshGui(String resultFilePath)
