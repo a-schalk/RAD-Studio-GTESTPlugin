@@ -98,7 +98,10 @@ void __fastcall TGTESTFrame::navigateToFailureLine(TTreeNode* failureNode)
     return;
   }
 
-  editView->Buffer->EditPosition->Move(StrToInt(path[2]),1);
+  int falseLineNumber = StrToInt(path[2]);
+  editView->Buffer->EditPosition->Move(falseLineNumber, 1);
+  editView->Center(falseLineNumber, 1);
+//  editView->GetEditWindow()->GetForm()->SetFocus();
 }
 
 void __fastcall TGTESTFrame::refreshGui(String resultFilePath)
@@ -310,7 +313,7 @@ void __fastcall TGTESTFrame::buildProject(_di_IOTAProject project)
 {
   _di_IOTAProjectBuilder projectBuilder = project->GetProjectBuilder();
 
-	if(!projectBuilder->BuildProject(cmOTABuild, true, true))
+	if(!projectBuilder->BuildProject(cmOTAMake, true, true))
     throw PluginException("The following project could not be build: " + project->GetFileName());
 }
 
