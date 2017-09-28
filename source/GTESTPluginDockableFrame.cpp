@@ -3,6 +3,7 @@
 #include <vcl.h>
 #include <windows.h>
 #include <System.StrUtils.hpp>
+#include <System.IOUtils.hpp>
 #include <ToolsApi.hpp>
 #pragma hdrstop
 
@@ -374,6 +375,26 @@ String __fastcall TGTESTFrame::getTestProjectPathFromActiveProjectsEnvVariables(
   {
     throw PluginException("The active project has no environment variable with the name " +
                           DEBUGGER_ENV_BLOCK_VARIABLE_NAME);
+  }
+
+  if(result.Length() < 3 || result.SubString(0, 3).Compare("C:\\") != 0)
+  {
+    String currentPath = GetCurrentDir();
+    try
+    {
+      SetCurrentDir(ExtractFilePath(activeProject->GetFileName()));
+      result = TPath::GetFullPath(result);
+      SetCurrentDir(currentPath);
+    }
+    catch(...)
+    {
+      SetCurrentDir(currentPath);
+      throw PluginException(String("There occured an error when trying to generate ") +
+                            "an absolute path with the absolute path " +
+                            ExtractFilePath(activeProject->GetFileName()) +
+                            " and the relative path " +
+                            result);
+    }
   }
 
   return result;
