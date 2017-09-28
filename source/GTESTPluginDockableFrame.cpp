@@ -283,6 +283,10 @@ String __fastcall TGTESTFrame::runTestOnProject(_di_IOTAProject testProject)
 
   String finalOutputDir = ExtractFilePath(testProject->GetFileName()) +
                           projectOptions->GetOptionValue("FinalOutputDir").As<String>();
+
+  if(finalOutputDir.Length() > 0 && finalOutputDir[finalOutputDir.Length()-1] != '\\')
+    finalOutputDir += "\\";
+
 	String sanitizedProjectName = projectOptions->GetOptionValue("SanitizedProjectName").As<String>();
   String resultFilePath = finalOutputDir +
                           ReplaceStr(ExtractFileName(testProject->GetFileName()), ".cbproj", "")
