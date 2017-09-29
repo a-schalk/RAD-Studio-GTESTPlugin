@@ -10,7 +10,8 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
-TGTESTForm *GTESTForm = NULL;
+TGTESTForm *GTESTForm = nullptr;
+bool constructed = false;
 
 //---------------------------------------------------------------------------
 /**
@@ -56,14 +57,12 @@ void __fastcall ShowDockableForm()
 **/
 void __fastcall RegisterDockableForm()
 {
-// Ist verantwortlich für das Desktop Saving
-// TODO muss noch richtig gemacht werden
-//  if(RegisterFieldAddress)
-//  {
-//   RegisterFieldAddress(typeid(GTESTForm).name(), GTESTForm);
-//  }
-//  TMetaClass *FormClass = __classid(TGTESTForm);
-//  RegisterDesktopFormClass(FormClass, typeid(GTESTForm).name(), typeid(GTESTForm).name());
+  if(RegisterFieldAddress)
+  {
+   RegisterFieldAddress(typeid(GTESTForm).name(), &GTESTForm);
+  }
+  TDesktopFormClass AFormClass = __classid(TGTESTForm);
+  RegisterDesktopFormClass(AFormClass, typeid(GTESTForm).name(), typeid(GTESTForm).name());
 }
 
 /**
@@ -79,9 +78,8 @@ void __fastcall RegisterDockableForm()
 **/
 void __fastcall UnRegisterDockableForm()
 {
-// TODO muss zusammen mit RegisterDockableForm noch richtig umgesetzt werden
-//  if(UnregisterFieldAddress)
-//    UnregisterFieldAddress(GTESTForm);
+  if(UnregisterFieldAddress)
+    UnregisterFieldAddress(&GTESTForm);
 }
 
 /**
@@ -98,7 +96,7 @@ void __fastcall UnRegisterDockableForm()
 **/
 void __fastcall CreateDockableForm()
 {
-  GTESTForm = new TGTESTForm(NULL);
+  GTESTForm = new TGTESTForm(Application->MainForm);
   RegisterDockableForm();
 }
 
@@ -117,7 +115,8 @@ void __fastcall FreeDockableForm()
   if(GTESTForm)
   {
     UnRegisterDockableForm();
-    delete GTESTForm;
+    if(constructed)
+      delete GTESTForm;
   }
 }
 
@@ -136,8 +135,10 @@ void __fastcall FreeDockableForm()
 **/
 __fastcall TGTESTForm::TGTESTForm(TComponent* Owner) : TDockableForm(Owner)
 {
-  AutoSave = True;
-  SaveStateNecessary = True;
+  constructed = true;
+  DeskSection = typeid(this).name();
+  AutoSave = true;
+  SaveStateNecessary = true;
   pGTESTFrame = new TGTESTFrame(this);
   pGTESTFrame->Parent = this;
   pGTESTFrame->Align = alClient;
@@ -154,7 +155,8 @@ __fastcall TGTESTForm::TGTESTForm(TComponent* Owner) : TDockableForm(Owner)
 **/
 __fastcall TGTESTForm::~TGTESTForm()
 {
-  SaveStateNecessary = true;
+  constructed = false;
+  SaveStateNecessary = false;
   delete pGTESTFrame;
 }
 
@@ -229,6 +231,5 @@ void __fastcall TGTESTForm::Run()
   if(pGTESTFrame)
     pGTESTFrame->Run();
 }
-
 
 //---------------------------------------------------------------------------

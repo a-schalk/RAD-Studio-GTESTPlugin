@@ -32,6 +32,11 @@ __fastcall TGTESTFrame::TGTESTFrame(TComponent* Owner)
   HeadPanel->ParentColor = false;
   GTESTTreeView->ReadOnly = true;
 }
+
+__fastcall TGTESTFrame::~TGTESTFrame(void)
+{
+  deleteTreeDataObjects();
+}
 //---------------------------------------------------------------------------
 
 void __fastcall TGTESTFrame::GTESTTreeViewCustomDrawItem(TCustomTreeView *Sender, TTreeNode *Node,

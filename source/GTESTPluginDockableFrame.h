@@ -77,6 +77,7 @@ private:	// Benutzer-Deklarationen
   void __fastcall navigateToFailureLine(TTreeNode* failureNode);
 public:		// Benutzer-Deklarationen
   __fastcall TGTESTFrame(TComponent* Owner);
+  __fastcall ~TGTESTFrame(void);
   void __fastcall Run();
 };
 //---------------------------------------------------------------------------

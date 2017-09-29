@@ -13,10 +13,9 @@
 #include "GTESTPluginDebugNotifier.h"
 
 //---------------------------------------------------------------------------
-class TGTESTForm : public TDockableForm//, public INTACustomDockableForm
+class TGTESTForm : public TDockableForm
 {
-  using inherited = INTACustomDockableForm;
-  //typedef INTACustomDockableForm inherited;
+  typedef TDockableForm inherited;
 __published:	// Von der IDE verwaltete Komponenten
 private:	// Benutzer-Deklarationen
   TGTESTFrame *pGTESTFrame;
@@ -35,8 +34,6 @@ public:		// Benutzer-Deklarationen
   static void __fastcall ShowDockableModuleExplorer();
   static void __fastcall RemoveDockableModuleExplorer();
   static void __fastcall CreateDockableModuleExplorer();
-  static void __fastcall SetTestProject(String Project, String Executeable);
-
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TGTESTForm *GTESTForm;

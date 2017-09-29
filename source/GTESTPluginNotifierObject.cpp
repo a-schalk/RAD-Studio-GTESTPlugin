@@ -1,6 +1,7 @@
 #pragma hdrstop
 #include "GTESTPluginNotifierObject.h"
 #include "GTESTPluginMacros.h"
+#include "GTESTPluginConstants.h"
 #include "Forms.hpp"
 #pragma package(smart_init)
 

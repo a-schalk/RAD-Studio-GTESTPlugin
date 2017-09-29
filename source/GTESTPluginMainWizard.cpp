@@ -29,19 +29,20 @@ __fastcall TGTESTPluginWizard::TGTESTPluginWizard(String strObjectName) :
     GTESTMenuItem = new TMenuItem(nullptr);
     GTESTMenuItem->Name = "ViewsGTESTPlugin";
     GTESTMenuItem->Caption = strGTestName;
-    INTAServices->AddActionMenu("ToolsMenu", NULL, GTESTMenuItem, false, true);
+    INTAServices->AddActionMenu("ToolsMenu", NULL, GTESTMenuItem, false /*InsertAfter*/, true /*InsertAsChild*/);
 
     TMenuItem* GTESTShowMenuItem = new TMenuItem(GTESTMenuItem);
     GTESTShowMenuItem->Caption = "Show";
     GTESTShowMenuItem->OnClick = GTESTShow;
-    INTAServices->AddActionMenu("ViewsGTESTPlugin", NULL, GTESTShowMenuItem, false, true);
+    INTAServices->AddActionMenu("ViewsGTESTPlugin", NULL, GTESTShowMenuItem, false /*InsertAfter*/, true /*InsertAsChild*/);
 
     TMenuItem* GTESTRunMenuItem = new TMenuItem(GTESTMenuItem);
     GTESTRunMenuItem->Caption = strRunName;
     GTESTRunMenuItem->OnClick = GTESTRun;
     GTESTRunMenuItem->ShortCut = TextToShortCut(Vcl_Consts_SmkcCtrl+Vcl_Consts_SmkcAlt+"F9");
-    INTAServices->AddActionMenu("ViewsGTESTPlugin", NULL, GTESTRunMenuItem, false, true);
+    INTAServices->AddActionMenu("ViewsGTESTPlugin", NULL, GTESTRunMenuItem, false /*InsertAfter*/, true /*InsertAsChild*/);
   }
+  TGTESTForm::CreateDockableModuleExplorer();
 }
 
 __fastcall TGTESTPluginWizard::~TGTESTPluginWizard()
