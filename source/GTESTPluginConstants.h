@@ -10,10 +10,10 @@
 **/
 #ifndef GTESTPluginConstantsH
 #define GTESTPluginConstantsH
-#endif
-
 extern const char *strRevision;
 extern const char *strSplashScreenName;
 extern const char *strSplashScreenBuild;
 extern const char *strAboutBoxDescription;
-
+extern const char *strGTestName;
+extern const char *strRunName;
+#endif

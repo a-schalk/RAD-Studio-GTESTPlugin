@@ -11,6 +11,7 @@
 #include "PluginException.h"
 #include "Utility.h"
 #include "Command.h"
+#include "GTESTPluginConstants.h"
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
@@ -136,7 +137,7 @@ void __fastcall TGTESTFrame::initTestSuitesNode(TTreeNode* testSuitesNode, _di_I
   ErrorsLabel->Caption = "Errors: " + IntToStr(testSuites->Get_errors());
   DisabledLabel->Caption = "Disabled: " + IntToStr(testSuites->Get_disabled());
   DurationLabel->Caption = "Time: " + testSuites->Get_time();
-  GetParentForm(this)->Caption = "GTEST - " + testSuites->Get_timestamp();
+  GetParentForm(this)->Caption = String(strGTestName) + " - " + testSuites->Get_timestamp();
 
   for(int testSuiteIndex = 0; testSuiteIndex < testSuites->GetCount(); ++testSuiteIndex)
   {

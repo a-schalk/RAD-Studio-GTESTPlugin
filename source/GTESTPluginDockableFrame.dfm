@@ -51,7 +51,7 @@ object GTESTFrame: TGTESTFrame
       Top = 6
       Width = 75
       Height = 26
-      Caption = 'Start'
+      Caption = 'Run'
       TabOrder = 0
       OnClick = StartButtonClick
     end

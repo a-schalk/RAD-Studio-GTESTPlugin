@@ -55,7 +55,7 @@ void __fastcall TDGHNotifierObject::DoNotification(String strMessage) {
   if (BorlandIDEServices->Supports(MsgServices)) {
     // Make sure messages are not added when the IDE is being destroyed.
     if (Application->MainForm->Visible) {
-      _di_IOTAMessageGroup MsgGrp = MsgServices->AddMessageGroup("GTEST");
+      _di_IOTAMessageGroup MsgGrp = MsgServices->AddMessageGroup(strGTestName);
       MsgServices->ShowMessageView(MsgGrp);
       MsgServices->AddTitleMessage(FObjectName + strMessage, MsgGrp);
     }

@@ -7,3 +7,5 @@ const char *strSplashScreenName = "GTESTPlugin %d.%d%s for %s";
 const char *strSplashScreenBuild = "Freeware by Andreas Schalk (Build %d.%d.%d.%d)";
 const char *strAboutBoxDescription = "A Google Test Plugin.";
 const char *strXMLTestResultFile = "test_details.xml";
+const char *strGTestName = "GTest";
+const char *strRunName = "Run";

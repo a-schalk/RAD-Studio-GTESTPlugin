@@ -7,6 +7,7 @@
 #include "GTESTPluginMacros.h"
 #include "GTESTPluginDockableForm.h"
 #include <GTESTPluginEditorNotifier.h>
+#include "GTESTPluginConstants.h"
 #include <Vcl.Menus.hpp>
 #include <Vcl.Consts.hpp>
 #pragma package(smart_init)
@@ -25,10 +26,10 @@ __fastcall TGTESTPluginWizard::TGTESTPluginWizard(String strObjectName) :
 
   if (BorlandIDEServices->Supports(INTAServices))
   {
-    GTESTMenuItem = new TMenuItem(NULL);
+    GTESTMenuItem = new TMenuItem(nullptr);
     GTESTMenuItem->Name = "ViewsGTESTPlugin";
-    GTESTMenuItem->Caption = "GTEST";
-    INTAServices->AddActionMenu("ViewsMenu", NULL, GTESTMenuItem, false, true);
+    GTESTMenuItem->Caption = strGTestName;
+    INTAServices->AddActionMenu("ToolsMenu", NULL, GTESTMenuItem, false, true);
 
     TMenuItem* GTESTShowMenuItem = new TMenuItem(GTESTMenuItem);
     GTESTShowMenuItem->Caption = "Show";
@@ -36,7 +37,7 @@ __fastcall TGTESTPluginWizard::TGTESTPluginWizard(String strObjectName) :
     INTAServices->AddActionMenu("ViewsGTESTPlugin", NULL, GTESTShowMenuItem, false, true);
 
     TMenuItem* GTESTRunMenuItem = new TMenuItem(GTESTMenuItem);
-    GTESTRunMenuItem->Caption = "Run";
+    GTESTRunMenuItem->Caption = strRunName;
     GTESTRunMenuItem->OnClick = GTESTRun;
     GTESTRunMenuItem->ShortCut = TextToShortCut(Vcl_Consts_SmkcCtrl+Vcl_Consts_SmkcAlt+"F9");
     INTAServices->AddActionMenu("ViewsGTESTPlugin", NULL, GTESTRunMenuItem, false, true);
