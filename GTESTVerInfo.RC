@@ -1,8 +1,8 @@
 LANGUAGE LANG_ENGLISH,SUBLANG_ENGLISH_US
 
 1 VERSIONINFO LOADONCALL MOVEABLE DISCARDABLE IMPURE
-FILEVERSION 1, 0, 0, 1
-PRODUCTVERSION 1, 0, 0, 1
+FILEVERSION 1, 0, 0, 2
+PRODUCTVERSION 1, 0, 0, 2
 FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
 FILEOS VOS__WINDOWS32
 FILETYPE VFT_APP
@@ -13,7 +13,7 @@ FILETYPE VFT_APP
     {
      VALUE "CompanyName", "Andreas Schalk\000"
      VALUE "FileDescription", "Google Test Plugin\000"
-     VALUE "FileVersion", "1.0.0.1\000"
+     VALUE "FileVersion", "1.0.0.2\000"
      VALUE "InternalName", "GTESTPlugin\000"
      VALUE "LegalCopyright", "Andreas Schalk\000"
      VALUE "LegalTrademarks", "Andreas Schalk\000"
